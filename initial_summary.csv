@@ -1,0 +1,7 @@
+controller,environment,gravity_m_s2,frequency_hz,fall_time_s,observation_time_s,survived_12s,x_displacement_before_fall_m,max_roll_before_fall_deg,max_pitch_before_fall_deg,left_contact_before_fall_percent,right_contact_before_fall_percent,both_contact_before_fall_percent
+Fixed,Earth,9.80665,0.25,1.6958,1.6958,0,-0.42738,25.9166,44.8445,63.3,48.03,17.73
+Fixed,Moon,1.62,0.25,2.8292,2.8292,0,-0.39468,44.8006,32.0616,45.43,55.9,8.11
+Fixed,Mars,3.73,0.25,2.0792,2.0792,0,-0.39327,7.3939,44.7958,64.46,56.43,27.11
+Adaptive,Earth,9.80665,0.25,1.6958,1.6958,0,-0.42738,25.9166,44.8445,63.3,48.03,17.73
+Adaptive,Moon,1.62,0.10161,3.2042,3.2042,0,-0.46007,44.3948,38.6756,60.03,44.66,10.68
+Adaptive,Mars,3.73,0.15418,2.3167,2.3167,0,-0.43352,41.6418,41.2236,60.0,46.13,12.79

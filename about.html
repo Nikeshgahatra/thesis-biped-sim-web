@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About · Gravity-Adaptive Gait Control for a Biped Robot</title>
+<meta name="description" content="Parametric PyBullet study of fixed and gravity-adaptive gait control for a six-joint biped on Earth, the Moon and Mars. Bachelor thesis by Nikesh Gahatraj.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav class="top"><div class="wrap"><a class="brand" href="index.html">🚀 Biped · Earth · Moon · Mars</a><a class="l" href="index.html">Home</a><a class="l" href="simulator.html">Simulator</a><a class="l" href="results.html">Results</a><a class="l" href="method.html">Method</a><a class="l" href="hardware.html">Hardware</a><a class="l" href="database.html">Database</a><a class="l on" href="about.html">About</a></div></nav>
+<main class="wrap">
+<section class="card"><h1 style="margin:0 0 8px;font-size:30px">About</h1>
+<p><b>Development of a Gravity-Adaptive Gait Control Algorithm for a Bipedal Robot Using Arduino Mega: A Parametric Simulation Approach for Earth, Lunar, and Martian Environments</b></p>
+<p>Bachelor thesis by Nikesh Gahatraj (ID 2317390), Department of Smart Computing, Kyungdong University Global. Supervisor: Dr. Nyrod Villa.</p></section>
+<section class="card two"><div><h2>Findings</h2><ul class="clean"><li>The model stood stably in all three gravities.</li><li>The hand-chosen gait fell in all six runs; scaling the frequency with gravity delayed the fall by 13.3% (Moon) and 11.4% (Mars).</li><li>After separate tuning, both controllers stayed upright for 12 s in all conditions.</li><li>Tuning mattered far more than the frequency law, and there was no single best controller.</li></ul></div>
+<div><h2>Limitations</h2><ul class="clean"><li>Results come from simulation only; nothing was measured on the robot.</li><li>One run per condition.</li><li>Idealised motors and exact tilt readings.</li><li>All joints bend in one plane.</li></ul></div></section>
+<section class="card"><h2>How the site is built</h2><div class="grid">
+<div class="tile"><b>Front end</b><span>Plain HTML, CSS and JavaScript with canvas drawing. No framework.</span></div>
+<div class="tile"><b>Data layer</b><span>SQLite database <code>db/results.db</code> exported to JSON in <code>api/</code>.</span></div>
+<div class="tile"><b>Backend</b><span><code>backend/</code>: build script and a local REST server on the same database.</span></div>
+<div class="tile"><b>Simulation</b><span>Python and PyBullet in <code>simulation/</code>.</span></div></div></section>
+<section class="card"><h2>Run it yourself</h2>
+<h3>The real physics simulation</h3><pre><code>cd simulation
+pip install -r requirements.txt
+python simulate.py --gravity Moon --controller Adaptive --gait tuned --gui</code></pre>
+<h3>The website with its REST API on your computer</h3><pre><code>python backend/build_db.py
+python backend/server.py      # then open http://localhost:8000</code></pre>
+<p class="note">Online, the site only replays saved results. The physics engine does not run in the browser.</p></section>
+</main>
+<footer class="foot"><div class="wrap">Nikesh Gahatraj · ID 2317390 · Smart Computing, Kyungdong University Global · Supervisor: Dr. Nyrod Villa<br>Data: PyBullet simulation, one run per condition. Nothing on this site was measured on the physical robot.</div></footer>
+</body></html>

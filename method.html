@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Method · Gravity-Adaptive Gait Control for a Biped Robot</title>
+<meta name="description" content="Parametric PyBullet study of fixed and gravity-adaptive gait control for a six-joint biped on Earth, the Moon and Mars. Bachelor thesis by Nikesh Gahatraj.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav class="top"><div class="wrap"><a class="brand" href="index.html">🚀 Biped · Earth · Moon · Mars</a><a class="l" href="index.html">Home</a><a class="l" href="simulator.html">Simulator</a><a class="l" href="results.html">Results</a><a class="l on" href="method.html">Method</a><a class="l" href="hardware.html">Hardware</a><a class="l" href="database.html">Database</a><a class="l" href="about.html">About</a></div></nav>
+<main class="wrap">
+<section class="card"><h1 style="margin:0 0 8px;font-size:30px">Method</h1><p>The study moves from the simplest test to the most demanding one, so that the model is understood before controllers are compared.</p></section>
+<section class="card two"><div><h2>The simulated robot</h2><ul class="clean"><li>Six revolute joints: hip, knee and ankle on each leg, all bending in the pitch plane.</li><li>Total mass 2.10 kg; standing height about 0.55 m; thigh and shin 0.20 m each; foot 0.14 m.</li><li>PyBullet at 240 Hz, flat ground, position-controlled motors limited to 2.0 N·m.</li><li>Joint limits: hip ±0.6 rad, knee −0.1 to 1.2 rad, ankle ±0.5 rad.</li></ul></div>
+<div><h2>Fall rule</h2><p>A run stops when the body height drops below 0.35 m, or when the roll or pitch angle passes 45°. Runs last at most 12 s.</p><p class="note">The link masses and widths are modelling assumptions. Only the foot length was taken from the physical prototype.</p></div></section>
+<section class="card"><h2>The gait and the gravity law</h2>
+<p>Each joint follows a sine wave with a smooth start-up. For the left leg (the right leg uses −sin):</p>
+<div class="eq">hip&nbsp;&nbsp;&nbsp;= s(t)·A<sub>h</sub>·sin(2πft) + b<sub>h</sub> + c<sub>h</sub><br>knee&nbsp;&nbsp;= s(t)·A<sub>k</sub>·max(0, sin(2πft))<br>ankle = −s(t)·A<sub>a</sub>·sin(2πft) + b<sub>a</sub> + c<sub>a</sub></div>
+<p>The feedback corrections come from the body pitch θ and pitch rate ω, limited to ±0.12 rad:</p>
+<div class="eq">c = clip(k<sub>p</sub>·θ + k<sub>d</sub>·ω, −0.12, +0.12)</div>
+<p>The fixed controller uses the same frequency everywhere. The adaptive controller scales it with gravity:</p>
+<div class="eq">f(g) = f<sub>0</sub> · √(g / 9.80665)</div>
+<p class="note">With f<sub>0</sub> = 0.25 Hz the first gait ran at 0.2500 Hz on Earth, 0.1016 Hz on the Moon and 0.1542 Hz on Mars.</p></section>
+<section class="card"><h2>Experiments</h2><div class="tablewrap"><table>
+<tr><th>#</th><th>Purpose</th><th>Conditions</th><th>Runs</th></tr>
+<tr><td>1</td><td>Standing stability</td><td>Earth, Moon, Mars; neutral pose; 10 s</td><td>3</td></tr>
+<tr><td>2</td><td>Foot width</td><td>7, 9, 11 cm × 3 gravities; no disturbance</td><td>9</td></tr>
+<tr><td>3</td><td>Preliminary walking</td><td>Earth; up to 12 s</td><td>2</td></tr>
+<tr><td>4</td><td>First gait, fixed vs adaptive</td><td>2 controllers × 3 gravities</td><td>6</td></tr>
+<tr><td>5</td><td>Tuned gait, fixed vs adaptive</td><td>2 controllers × 3 gravities</td><td>6</td></tr></table></div></section>
+<section class="card"><h2>Automatic tuning</h2><p>A random search over 13 parameters (frequency, three amplitudes, start-up time, ankle and hip feedback gains, two bias angles and the motor gains) was run separately and with equal effort for each controller. The fall rule and the 2.0 N·m limit were not changed. Search ranges: frequency 0.15 to 0.80 Hz; hip amplitude 0.03 to 0.16 rad; knee 0.05 to 0.30 rad; ankle 0.00 to 0.10 rad; start-up 0.5 to 4.0 s; feedback gains −0.6 to 0.6 (kp) and −0.15 to 0.15 (kd); biases ±0.25 rad.</p>
+<h3>Parameters used (from the database)</h3><div class="tablewrap"><table id="tp"></table></div></section>
+</main>
+<footer class="foot"><div class="wrap">Nikesh Gahatraj · ID 2317390 · Smart Computing, Kyungdong University Global · Supervisor: Dr. Nyrod Villa<br>Data: PyBullet simulation, one run per condition. Nothing on this site was measured on the physical robot.</div></footer>
+<script src="assets/method.js"></script></body></html>

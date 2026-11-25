@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hardware · Gravity-Adaptive Gait Control for a Biped Robot</title>
+<meta name="description" content="Parametric PyBullet study of fixed and gravity-adaptive gait control for a six-joint biped on Earth, the Moon and Mars. Bachelor thesis by Nikesh Gahatraj.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav class="top"><div class="wrap"><a class="brand" href="index.html">🚀 Biped · Earth · Moon · Mars</a><a class="l" href="index.html">Home</a><a class="l" href="simulator.html">Simulator</a><a class="l" href="results.html">Results</a><a class="l" href="method.html">Method</a><a class="l on" href="hardware.html">Hardware</a><a class="l" href="database.html">Database</a><a class="l" href="about.html">About</a></div></nav>
+<main class="wrap">
+<section class="card"><h1 style="margin:0 0 8px;font-size:30px">Hardware prototype</h1>
+<p>A small two-legged prototype was built around an Arduino Mega 2560. It sets the joint layout and the foot length used in the simulation, and it shows what the real servos can and cannot do. All gravity experiments were done in simulation, because gravity cannot be changed in a laboratory.</p></section>
+<section class="card"><h2>Components</h2><div class="tablewrap"><table>
+<tr><th>Part</th><th>Qty</th><th>Role</th></tr>
+<tr><td>Arduino Mega 2560</td><td>1</td><td>Controller: generates the servo signals and reads the tilt sensor</td></tr>
+<tr><td>MG996R metal-gear servo</td><td>6</td><td>Hip, knee and ankle of each leg</td></tr>
+<tr><td>MPU6050 (accelerometer and gyroscope)</td><td>1</td><td>Body tilt, read over I²C</td></tr>
+<tr><td>LiPo battery with regulator</td><td>1</td><td>Servo supply; the servos must not be fed from the Arduino 5 V pin</td></tr>
+<tr><td>3D-printed frame, bearings</td><td>1 set</td><td>Torso, thighs, shins and feet</td></tr></table></div>
+<img class="fig" src="assets/fig_hw.png" alt="Block diagram of the prototype electronics"><p class="note" style="text-align:center">Block diagram of the prototype electronics.</p></section>
+<section class="card two"><div><h2>How it connects to the simulation</h2><ul class="clean"><li>Same six-joint layout: hip, knee and ankle per leg, all in the pitch plane.</li><li>Same foot length, 14 cm.</li><li>Gait amplitudes found in the simulation are small (about 3° to 12°) and the frequencies are below 1 Hz, which suits hobby servos.</li></ul></div>
+<div><h2>Status and limits</h2><ul class="clean"><li>The joints move through a limited range, but the prototype does not walk on two legs.</li><li>All joints bend in one plane, so there is no active sideways balance.</li><li>An MG996R gives about 0.9 to 1.1 N·m at stall, while the simulated motor allows 2.0 N·m. On Earth a modest lever arm can already reach the stall torque.</li><li>No measurements were taken on the hardware, so none are reported.</li></ul></div></section>
+<section class="card"><h2>Static torque estimate</h2><p>Weight of a 2.10 kg robot acting at an assumed lever arm of 5 cm. The lever arm is an illustration, not a measurement.</p>
+<div class="tablewrap"><table><tr><th>Gravity</th><th>Weight (N)</th><th>Torque (N·m)</th><th>Compared with servo stall (about 1.0 N·m)</th></tr>
+<tr><td>Earth</td><td>20.59</td><td>1.03</td><td>Equal to the stall torque</td></tr><tr><td>Mars</td><td>7.83</td><td>0.39</td><td>About 40%</td></tr><tr><td>Moon</td><td>3.40</td><td>0.17</td><td>About 17%</td></tr></table></div></section>
+</main>
+<footer class="foot"><div class="wrap">Nikesh Gahatraj · ID 2317390 · Smart Computing, Kyungdong University Global · Supervisor: Dr. Nyrod Villa<br>Data: PyBullet simulation, one run per condition. Nothing on this site was measured on the physical robot.</div></footer>
+</body></html>

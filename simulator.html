@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulator · Gravity-Adaptive Gait Control for a Biped Robot</title>
+<meta name="description" content="Parametric PyBullet study of fixed and gravity-adaptive gait control for a six-joint biped on Earth, the Moon and Mars. Bachelor thesis by Nikesh Gahatraj.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav class="top"><div class="wrap"><a class="brand" href="index.html">🚀 Biped · Earth · Moon · Mars</a><a class="l" href="index.html">Home</a><a class="l on" href="simulator.html">Simulator</a><a class="l" href="results.html">Results</a><a class="l" href="method.html">Method</a><a class="l" href="hardware.html">Hardware</a><a class="l" href="database.html">Database</a><a class="l" href="about.html">About</a></div></nav>
+<main class="wrap">
+<section class="card"><h2>Simulation replay</h2>
+<div class="controls">
+<label>Gravity<select id="env"><option>Earth</option><option selected>Moon</option><option>Mars</option></select></label>
+<label>Controller<select id="ctl"><option value="Fixed">Fixed frequency</option><option value="Adaptive" selected>Gravity-adaptive</option></select></label>
+<label>Gait<select id="gait"><option value="tuned" selected>Tuned gait</option><option value="first">First gait (falls)</option></select></label>
+<label>Speed<select id="spd"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label></div>
+<div class="stage"><canvas id="cv" width="960" height="420" aria-label="Side view of the simulated biped"></canvas>
+<div class="hud"><div><span>Gravity</span><b id="hg">–</b></div><div><span>Gait frequency</span><b id="hf">–</b></div><div><span>Time</span><b id="ht">–</b></div><div><span>Distance</span><b id="hx">–</b></div><div><span>Pitch</span><b id="hp">–</b></div></div>
+<div id="badge" class="badge" hidden></div></div>
+<div class="bar"><button class="btn" id="play" type="button">Pause</button><input id="seek" type="range" min="0" max="1000" value="0" aria-label="Time"></div>
+<canvas id="chart" width="960" height="190" aria-label="Pitch, roll and distance over time"></canvas>
+<p class="note">Body position, height and tilt are the values logged by PyBullet at 0.1 s steps. The leg angles are rebuilt from the gait equations (see Method) and drawn as a flat side view, so the picture is a schematic and not a render of the physics engine. Both legs are drawn, the far leg lighter.</p></section>
+<section class="card"><h2>Result of this run</h2><div id="sum" class="sum"></div>
+<h3>All 12 runs (click a row to replay it)</h3><div class="tablewrap"><table id="tbl" class="click"></table></div></section>
+</main>
+<footer class="foot"><div class="wrap">Nikesh Gahatraj · ID 2317390 · Smart Computing, Kyungdong University Global · Supervisor: Dr. Nyrod Villa<br>Data: PyBullet simulation, one run per condition. Nothing on this site was measured on the physical robot.</div></footer>
+<script src="assets/sim.js"></script></body></html>

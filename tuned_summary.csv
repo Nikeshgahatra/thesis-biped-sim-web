@@ -1,0 +1,7 @@
+controller,environment,gravity_m_s2,frequency_hz,fall_detected,fall_time_s,survived_s,x_displacement_m,max_abs_pitch_deg,max_abs_roll_deg
+Fixed,Earth,9.80665,0.2087,0,,12.0,0.229,9.1,1.44
+Fixed,Moon,1.62,0.2087,0,,12.0,0.1823,8.03,0.92
+Fixed,Mars,3.73,0.2087,0,,12.0,0.1729,7.69,2.19
+Adaptive,Earth,9.80665,0.5556,0,,12.0,0.1117,4.56,2.25
+Adaptive,Moon,1.62,0.2258,0,,12.0,0.1511,3.33,2.35
+Adaptive,Mars,3.73,0.3426,0,,12.0,0.2704,3.11,3.49

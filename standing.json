@@ -1,0 +1,1 @@
+[{"environment": "Earth", "gravity": 9.80665, "both_contact_pct": 99.21, "max_roll_deg": 0.0135, "max_pitch_deg": 0.0209}, {"environment": "Moon", "gravity": 1.62, "both_contact_pct": 98.08, "max_roll_deg": 0.0073, "max_pitch_deg": 0.0087}, {"environment": "Mars", "gravity": 3.73, "both_contact_pct": 98.75, "max_roll_deg": 0.0083, "max_pitch_deg": 0.0115}]

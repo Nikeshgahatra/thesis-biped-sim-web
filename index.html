@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home · Gravity-Adaptive Gait Control for a Biped Robot</title>
+<meta name="description" content="Parametric PyBullet study of fixed and gravity-adaptive gait control for a six-joint biped on Earth, the Moon and Mars. Bachelor thesis by Nikesh Gahatraj.">
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<nav class="top"><div class="wrap"><a class="brand" href="index.html">🚀 Biped · Earth · Moon · Mars</a><a class="l on" href="index.html">Home</a><a class="l" href="simulator.html">Simulator</a><a class="l" href="results.html">Results</a><a class="l" href="method.html">Method</a><a class="l" href="hardware.html">Hardware</a><a class="l" href="database.html">Database</a><a class="l" href="about.html">About</a></div></nav>
+<header class="hero"><div class="planets"><div class="pl e"></div><div class="pl m"></div><div class="pl r"></div></div><div class="wrap">
+<p class="eyebrow">Bachelor thesis · Smart Computing · Kyungdong University Global</p>
+<h1>Can a walking robot adapt its gait to the gravity of another world?</h1>
+<p class="lead">A six-joint biped controlled by an Arduino-style gait controller was simulated under Earth, lunar and Martian gravity. Watch the runs, read the results and explore the data.</p>
+<div class="btns"><a class="btn" href="simulator.html">Open the simulator</a><a class="btn ghost" href="results.html">See the results</a></div></div></header><main class="wrap">
+
+<section class="card"><div class="grid">
+<div class="stat"><b>12</b><span>simulated runs: 3 gravities × 2 controllers × 2 gaits</span></div>
+<div class="stat"><b class="fall">6 of 6</b><span>first-gait runs fell within 1.7 to 3.2 s</span></div>
+<div class="stat"><b class="up">6 of 6</b><span>tuned runs stayed upright for the full 12 s</span></div>
+<div class="stat"><b>13</b><span>parameters searched for each controller</span></div></div></section>
+<section class="card"><h2>Explore the project</h2><div class="grid">
+<a class="tile" href="simulator.html"><b>Simulator</b><span>Animated replay of all 12 runs with graph and run table.</span></a>
+<a class="tile" href="results.html"><b>Results</b><span>Charts and tables: first gait, tuned gait, standing, foot width.</span></a>
+<a class="tile" href="method.html"><b>Method</b><span>Robot model, controllers, equations, tuning and experiments.</span></a>
+<a class="tile" href="hardware.html"><b>Hardware</b><span>The Arduino Mega prototype and how it relates to the simulation.</span></a>
+<a class="tile" href="database.html"><b>Database</b><span>Browse the SQLite data, filter, sort and download CSV.</span></a>
+<a class="tile" href="about.html"><b>About</b><span>The thesis, the author, limits and how to run the code.</span></a></div></section>
+<section class="card two"><div><h2>The question</h2><p>Moon gravity is about 1.62 m/s² and Mars gravity about 3.73 m/s², against 9.81 m/s² on Earth. A gait tuned on Earth may not suit those worlds. This project tests a simple idea: slow the walking rhythm down with gravity, using f = f<sub>0</sub>·√(g / 9.81), and compare it with a gait that keeps the same frequency everywhere.</p></div>
+<div><h2>The short answer</h2><p>The gravity-scaled frequency delayed the first gait's fall by 13.3% on the Moon and 11.4% on Mars, but did not stop it. A parameter search then made both controllers walk for 12 s without falling. The search mattered far more than the frequency law, and neither controller was best in every respect.</p></div></section>
+</main>
+<footer class="foot"><div class="wrap">Nikesh Gahatraj · ID 2317390 · Smart Computing, Kyungdong University Global · Supervisor: Dr. Nyrod Villa<br>Data: PyBullet simulation, one run per condition. Nothing on this site was measured on the physical robot.</div></footer>
+</body></html>

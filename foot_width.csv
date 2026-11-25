@@ -1,0 +1,10 @@
+variant,foot_width_m,environment,gravity_m_s2,fall_time_s,max_roll_deg,max_pitch_deg,min_height_m,left_contact_percent,right_contact_percent,both_contact_percent
+Original_7cm,0.07,Earth,9.80665,Not crossed,0.0044,0.0059,0.5498,99.96,99.96,99.96
+Original_7cm,0.07,Moon,1.62,Not crossed,0.0007,0.001,0.55,99.96,99.96,99.96
+Original_7cm,0.07,Mars,3.73,Not crossed,0.0017,0.0022,0.5499,99.96,99.96,99.96
+Wider_9cm,0.09,Earth,9.80665,Not crossed,0.0035,0.0059,0.5498,99.96,99.96,99.96
+Wider_9cm,0.09,Moon,1.62,Not crossed,0.0006,0.001,0.55,99.96,99.96,99.96
+Wider_9cm,0.09,Mars,3.73,Not crossed,0.0013,0.0022,0.5499,99.96,99.96,99.96
+Wider_11cm,0.11,Earth,9.80665,Not crossed,0.0026,0.0058,0.5498,99.96,99.96,99.96
+Wider_11cm,0.11,Moon,1.62,Not crossed,0.0004,0.001,0.55,99.96,99.96,99.96
+Wider_11cm,0.11,Mars,3.73,Not crossed,0.001,0.0022,0.5499,99.96,99.96,99.96

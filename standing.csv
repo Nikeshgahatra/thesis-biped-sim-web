@@ -1,0 +1,4 @@
+environment,gravity_m_s2,both_contact_percent,max_roll_deg,max_pitch_deg
+Earth,9.80665,99.21,0.0135,0.0209
+Moon,1.62,98.08,0.0073,0.0087
+Mars,3.73,98.75,0.0083,0.0115
