@@ -5,7 +5,9 @@ const G={Earth:9.80665,Moon:1.62,Mars:3.73};
 const panels=['Fixed','Adaptive'].map(c=>({c,cv:$('cv'+c),ctx:$('cv'+c).getContext('2d')}));
 // ---------- data helpers
 function at(run,tt){const n=run.length;if(tt<=run[0][0])return run[0];if(tt>=run[n-1][0])return run[n-1];
-  let i=0;while(run[i+1][0]<tt)i++;const a=run[i],b=run[i+1],u=(tt-a[0])/(b[0]-a[0]);return a.map((v,k)=>k===0?tt:v+(b[k]-v)*u)}
+  let i=0;while(run[i+1][0]<tt)i++;const p0=run[Math.max(0,i-1)],p1=run[i],p2=run[i+1],p3=run[Math.min(n-1,i+2)],u=(tt-p1[0])/(p2[0]-p1[0]),u2=u*u,u3=u2*u;
+  return p1.map((v,k)=>{if(k===0)return tt;if(k===5)return v;
+    return 0.5*((2*p1[k])+(-p0[k]+p2[k])*u+(2*p0[k]-5*p1[k]+4*p2[k]-p3[k])*u2+(-p0[k]+3*p1[k]-3*p2[k]+p3[k])*u3)})}
 function freqOf(c){const f0=D.params[gait][c].freq;return c==='Fixed'?f0:f0*Math.sqrt(G[env]/9.80665)}
 function targets(prm,freq,tt,pitch,rate){
   let r=clamp(tt/prm.startup,0,1);r=r*r*(3-2*r);const lw=Math.sin(2*Math.PI*freq*tt),rw=-lw;
@@ -32,7 +34,7 @@ function drawPanel(p){
   ctx.fillStyle='#38e0b488';for(const r of run){if(r[0]>tt)break;ctx.beginPath();ctx.arc(X(r[1]),GY+40,2,0,6.3);ctx.fill()}
   // robot
   const bx=X(s[1]),by=GY-s[2]*S;const rot=(px,py)=>[bx+(px*Math.cos(pitch)+py*Math.sin(pitch))*S,by-(py*Math.cos(pitch)-px*Math.sin(pitch))*S];
-  const tg=targets(D.params[gait][p.c],freqOf(p.c),tt,pitch,rate),hipP=rot(0,-0.11);
+  const tg=targets(D.params[gait][p.c],freqOf(p.c),tt,pitch,rate),hipP=rot(0,-0.11),K=parseFloat($('amp').value);['L','R'].forEach(k=>{tg[k].hip*=K;tg[k].knee*=K;tg[k].ank*=K});
   function leg(q,al,col){const a1=pitch+q.hip,a2=a1-q.knee,a3=a2+q.ank,d=a=>[Math.sin(a),Math.cos(a)];
     const k=[hipP[0]+d(a1)[0]*.2*S,hipP[1]+d(a1)[1]*.2*S],f=[k[0]+d(a2)[0]*.2*S,k[1]+d(a2)[1]*.2*S];
     ctx.globalAlpha=al;ctx.lineCap='round';ctx.strokeStyle=col;ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(hipP[0],hipP[1]);ctx.lineTo(k[0],k[1]);ctx.stroke();
@@ -94,17 +96,15 @@ function table(){
 function set(e,g){env=e||env;gait=g||gait;$('gait').value=gait;
   T=Math.max(...['Fixed','Adaptive'].map(c=>{const r=D.runs[gait+'|'+c+'|'+env];return r[r.length-1][0]}));
   [...document.querySelectorAll('.gb')].forEach(b=>b.classList.toggle('on',b.dataset.e===env));
-  $('gv').textContent=G[env].toFixed(2)+' m/s²';t=0;playing=true;$('play').textContent='Pause';cards();table();}
+  $('gv').textContent=G[env].toFixed(2)+' m/s²';t=0;cards();table();}
 function frame(ts){
   if(last===null)last=ts;const dt=(ts-last)/1000;last=ts;
-  if(playing){t+=dt*parseFloat($('spd').value);if(t>=T+0.8){t=T+0.8;playing=false;$('play').textContent='Replay'}}
-  panels.forEach(drawPanel);drawDist();drawLaw();$('seek').value=Math.round(Math.min(t,T)/T*1000);$('clock').textContent=Math.min(t,T).toFixed(1)+' s / '+T.toFixed(1)+' s';
+  t+=dt*parseFloat($('spd').value);if(t>=T+1.8)t=0;
+  panels.forEach(drawPanel);drawDist();drawLaw();$('clock').textContent=Math.min(t,T).toFixed(1)+' s';
   requestAnimationFrame(frame);
 }
 [...document.querySelectorAll('.gb')].forEach(b=>b.onclick=()=>set(b.dataset.e));
 $('gait').onchange=e=>set(null,e.target.value);
-$('play').onclick=()=>{if(t>=T+0.8-1e-6||t>=T&&!playing){t=0;playing=true;$('play').textContent='Pause'}else{playing=!playing;$('play').textContent=playing?'Pause':'Play'}};
-$('seek').oninput=e=>{t=e.target.value/1000*T;playing=false;$('play').textContent='Play'};
 Promise.all(['timeseries.json','params.json','runs.json'].map(u=>fetch(u).then(r=>r.json()))).then(([ts,pr,runs])=>{
   const P=n=>{const o={};pr.filter(r=>r.controller===n).forEach(r=>o[r.name]=r.value);return o};const first=P('first (both)');
   D={runs:ts,params:{first:{Fixed:first,Adaptive:first},tuned:{Fixed:P('tuned Fixed'),Adaptive:P('tuned Adaptive')}},summary:{}};
