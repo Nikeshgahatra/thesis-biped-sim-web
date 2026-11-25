@@ -35,16 +35,17 @@ function drawPanel(p){
   // robot
   const bx=X(s[1]),by=GY-s[2]*S;const rot=(px,py)=>[bx+(px*Math.cos(pitch)+py*Math.sin(pitch))*S,by-(py*Math.cos(pitch)-px*Math.sin(pitch))*S];
   const tg=targets(D.params[gait][p.c],freqOf(p.c),tt,pitch,rate),hipP=rot(0,-0.11),K=parseFloat($('amp').value);['L','R'].forEach(k=>{tg[k].hip*=K;tg[k].knee*=K;tg[k].ank*=K});
-  function leg(q,al,col){const a1=pitch+q.hip,a2=a1-q.knee,a3=a2+q.ank,d=a=>[Math.sin(a),Math.cos(a)];
-    const k=[hipP[0]+d(a1)[0]*.2*S,hipP[1]+d(a1)[1]*.2*S],f=[k[0]+d(a2)[0]*.2*S,k[1]+d(a2)[1]*.2*S];
-    ctx.globalAlpha=al;ctx.lineCap='round';ctx.strokeStyle=col;ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(hipP[0],hipP[1]);ctx.lineTo(k[0],k[1]);ctx.stroke();
+  function leg(q,al,col,off){const a1=pitch+q.hip,a2=a1-q.knee,a3=a2+q.ank,d=a=>[Math.sin(a),Math.cos(a)],hp=[hipP[0]+off,hipP[1]-off*0.35];
+    const k=[hp[0]+d(a1)[0]*.2*S,hp[1]+d(a1)[1]*.2*S],f=[k[0]+d(a2)[0]*.2*S,k[1]+d(a2)[1]*.2*S];
+    ctx.globalAlpha=al;ctx.lineCap='round';ctx.strokeStyle=col;ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(hp[0],hp[1]);ctx.lineTo(k[0],k[1]);ctx.stroke();
     ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(k[0],k[1]);ctx.lineTo(f[0],f[1]);ctx.stroke();
     const fd=[Math.cos(a3),-Math.sin(a3)];ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(f[0]-fd[0]*.04*S,f[1]-fd[1]*.04*S);ctx.lineTo(f[0]+fd[0]*.10*S,f[1]+fd[1]*.10*S);ctx.stroke();
-    ctx.fillStyle='#fff';[hipP,k,f].forEach(q=>{ctx.beginPath();ctx.arc(q[0],q[1],3,0,6.3);ctx.fill()});ctx.globalAlpha=1}
-  const fallen=fell&&done,legc=p.c==='Fixed'?['#7a8fe8','#a9b8ff']:['#2fbf95','#6fe0b9'];
-  leg(tg.R,.45,legc[0]);leg(tg.L,1,legc[1]);
+    ctx.fillStyle='#fff';[hp,k,f].forEach(q=>{ctx.beginPath();ctx.arc(q[0],q[1],3,0,6.3);ctx.fill()});ctx.globalAlpha=1}
+  const fallen=fell&&done;
+  leg(tg.R,.95,'#ffb454',14);leg(tg.L,1,'#7fd3ff',0);
   const c=[[-.08,.11],[.08,.11],[.08,-.11],[-.08,-.11]].map(q=>rot(q[0],q[1]));
   ctx.fillStyle=fallen?'#b8402f':(p.c==='Fixed'?'#3d5bd6':'#14996f');ctx.strokeStyle='#e8eeff';ctx.lineWidth=2;ctx.beginPath();c.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillStyle='#7fd3ff';ctx.fillRect(10,H-24,14,5);ctx.fillStyle='#eaf0ff';ctx.fillText('left leg',28,H-18);ctx.fillStyle='#ffb454';ctx.fillRect(84,H-24,14,5);ctx.fillStyle='#eaf0ff';ctx.fillText('right leg',102,H-18);
   // state overlays
   if(fallen){const flash=clamp(1-(t-endT)/0.8,0,1);ctx.fillStyle='rgba(214,64,47,'+(0.06+0.28*flash)+')';ctx.fillRect(0,0,W,H);
     ctx.fillStyle='#fff';ctx.font='bold 30px system-ui';ctx.textAlign='center';ctx.fillText('FALLEN at '+endT.toFixed(2)+' s',W/2,44)}
