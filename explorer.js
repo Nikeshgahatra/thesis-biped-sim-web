@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-const SRC={runs:'api/runs.json',params:'api/params.json',standing:'api/standing.json',foot_width:'api/foot_width.json',timeseries:'api/timeseries.json'};
+const SRC={runs:'runs.json',params:'params.json',standing:'standing.json',foot_width:'foot_width.json',timeseries:'timeseries.json'};
 const SCHEMA={runs:'gait, controller, environment, gravity, frequency_hz, fell, fall_time_s, observed_s, x_displacement_m, max_pitch_deg, max_roll_deg',
  params:'controller, name, value',standing:'environment, gravity, both_contact_pct, max_roll_deg, max_pitch_deg',foot_width:'foot_width_cm, environment, both_contact_pct, max_roll_deg',
  timeseries:'gait, controller, environment, time_s, x_m, height_m, pitch_deg, roll_deg, fall_flag'};

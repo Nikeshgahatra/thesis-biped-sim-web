@@ -102,7 +102,7 @@ function frame(ts){
 ['env','ctl','gait'].forEach(i=>$(i).onchange=pick);
 $('play').onclick=()=>{if(ended){t=0;ended=false;$('badge').hidden=true;playing=true;$('play').textContent='Pause'}else{playing=!playing;$('play').textContent=playing?'Pause':'Play'}};
 $('seek').oninput=e=>{const T=run[run.length-1][0];t=e.target.value/1000*T;playing=false;ended=false;$('badge').hidden=true;$('play').textContent='Play'};
-Promise.all(['api/timeseries.json','api/params.json','api/runs.json'].map(u=>fetch(u).then(r=>r.json()))).then(([ts,pr,runs])=>{
+Promise.all(['timeseries.json','params.json','runs.json'].map(u=>fetch(u).then(r=>r.json()))).then(([ts,pr,runs])=>{
   const P=n=>{const o={};pr.filter(r=>r.controller===n).forEach(r=>o[r.name]=r.value);return o};
   const first=P('first (both)');
   D={gravity:{Earth:9.80665,Moon:1.62,Mars:3.73},runs:ts,params:{first:{Fixed:first,Adaptive:first},tuned:{Fixed:P('tuned Fixed'),Adaptive:P('tuned Adaptive')}},summary:{}};
